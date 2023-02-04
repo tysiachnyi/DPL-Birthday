@@ -1,10 +1,11 @@
-import { format } from "date-fns";
+import { format, isToday } from "date-fns";
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from "react";
 import { BIRTHDAY_INPUT } from "../../constants/BirthdayInput.const";
 import "./BirthdayForm.scss";
 import Spinner from "../Spinner/Spinner";
 import { BirthdayData } from "../../pages/BirthdayPage";
 import { API_URLS } from "../../constants/api";
+import Confetti from "react-confetti";
 
 type BirthdayFormProps = {
   data: undefined | BirthdayData;
@@ -16,6 +17,7 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
   const [selectedYear, setSelectedYear] = useState<number>(data?.year || 2000);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [succesMsg, setSuccesMsg] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [rickRoll, setRickRoll] = useState<boolean>(false);
 
@@ -23,7 +25,7 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
     if (success) {
       setTimeout(() => {
         setSuccess(false);
-      }, 3000);
+      }, 5000);
     }
   }, [success]);
 
@@ -31,7 +33,7 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
     if (error) {
       setTimeout(() => {
         setError(null);
-      }, 3000);
+      }, 5000);
     }
   }, [error]);
 
@@ -41,9 +43,9 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
     </div>
   );
 
-  const successBlock = (
+  const successBlock = () => (
     <div className="success-notification">
-      <div className="success-notification-text">Success!</div>
+      <div className="success-notification-text">{succesMsg || "Success!"}</div>
     </div>
   );
 
@@ -72,6 +74,7 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
   };
 
   const handleSubmit = async (event: FormEvent) => {
+    setSuccesMsg(null);
     setSuccess(false);
     setLoading(true);
     setError(null);
@@ -99,6 +102,11 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
       new Date(selectedYear, selectedMonth - 1, selectedDay),
       "dd/MM/yyyy"
     );
+
+    const today = isToday(
+      new Date(currentYear, selectedMonth - 1, selectedDay)
+    );
+
     if (birthdayDate === "01/04/2000") {
       setRickRoll(true);
     }
@@ -115,6 +123,9 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
       });
 
       if (response.ok) {
+        if (today) {
+          setSuccesMsg("Happy Birthday! 🎉🎉🎉");
+        }
         setTimeout(() => {
           setLoading(false);
           setSuccess(true);
@@ -131,7 +142,8 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
   return (
     <div className="birthday-element">
       <div>
-        <div className="succes-section">{success && successBlock}</div>
+        {success && succesMsg && <Confetti numberOfPieces={300} />}
+        <div className="succes-section">{success && successBlock()}</div>
         <div className="error-section">{error && errorBlock}</div>
         <div className="spinner-section">{loading && <Spinner />}</div>
       </div>
@@ -202,7 +214,7 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
               value={selectedYear}
               onChange={handleYearChange}
             >
-              {Array.from({ length: 100 }, (_, i) => (
+              {Array.from({ length: 101 }, (_, i) => (
                 <option
                   key={i + new Date().getFullYear() - 100}
                   value={i + new Date().getFullYear() - 100}
