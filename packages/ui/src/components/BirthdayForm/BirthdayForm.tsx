@@ -20,6 +20,26 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
   const [succesMsg, setSuccesMsg] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
   const [rickRoll, setRickRoll] = useState<boolean>(false);
+  const [isBirthday, setIsBirthday] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (data) {
+      const birthday = isToday(
+        new Date(new Date().getFullYear(), data.month - 1, data.day)
+      );
+      if (birthday) {
+        setIsBirthday(true);
+      }
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (isBirthday) {
+      setTimeout(() => {
+        setIsBirthday(false);
+      }, 5000);
+    }
+  }, [isBirthday]);
 
   useEffect(() => {
     if (success) {
@@ -48,6 +68,20 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
       <div className="success-notification-text">{succesMsg || "Success!"}</div>
     </div>
   );
+
+  const showConfetti = () => {
+    if (success && succesMsg) {
+      return <Confetti numberOfPieces={300} />;
+    }
+
+    if (isBirthday) {
+      setSuccess(true);
+      setSuccesMsg("Happy Birthday! 🎉🎉🎉");
+      return <Confetti numberOfPieces={300} />;
+    }
+
+    return null;
+  };
 
   const daysInMonth = new Date(selectedYear, selectedMonth, 0).getDate();
 
@@ -142,7 +176,7 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
   return (
     <div className="birthday-element">
       <div>
-        {success && succesMsg && <Confetti numberOfPieces={300} />}
+        {showConfetti()}
         <div className="succes-section">{success && successBlock()}</div>
         <div className="error-section">{error && errorBlock()}</div>
         <div className="spinner-section">{loading && <Spinner />}</div>
