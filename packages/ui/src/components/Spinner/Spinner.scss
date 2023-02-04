@@ -1,0 +1,49 @@
+.spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .spinner-text {
+    margin-right: 10px;
+  }
+
+  .bounce1 {
+    padding: 2px;
+    background-color: #02c30e;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    animation: sk-bounce 2s infinite ease-in-out both;
+  }
+
+  .bounce2 {
+    padding: 2px;
+    background-color: #06daba;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    animation: sk-bounce 2s infinite ease-in-out both;
+    animation-delay: -1s;
+  }
+
+  .bounce3 {
+    padding: 2px;
+    background-color: #f9d71c;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    animation: sk-bounce 2s infinite ease-in-out both;
+    animation-delay: -0.5s;
+  }
+
+  @keyframes sk-bounce {
+    0%,
+    100% {
+      transform: scale(0);
+    }
+    50% {
+      transform: scale(1);
+    }
+  }
+}

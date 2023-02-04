@@ -1,0 +1,239 @@
+$text-color: rgb(55 65 81);
+$text-color-light: rgb(55 65 81 / 0.6);
+$border-color: rgb(55 65 81 / 0.2);
+$border-color-light: rgb(55 65 81 / 0.1);
+$background-color: rgb(55 65 81 / 0.1);
+$gradient-color: linear-gradient(90deg, #1d0c72, #c2190a);
+
+$heading-font-size: 24px;
+
+.birthday-element {
+  .error-notification {
+    background: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    color: #721c24;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    margin-top: 10px;
+
+    animation: fade-in 0.5s ease-in-out;
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .error-notification-text {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .error-notification-close {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .error-notification-close:hover {
+      opacity: 0.8;
+    }
+
+    .error-notification-close:active {
+      opacity: 0.6;
+    }
+
+    .error-notification-close:focus {
+      outline: none;
+    }
+  }
+
+  .success-notification {
+    background: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 4px;
+    color: #155724;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    margin-top: 10px;
+
+    animation: fade-in 0.5s ease-in-out;
+
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    .success-notification-text {
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    .success-notification-close {
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .success-notification-close:hover {
+      opacity: 0.8;
+    }
+
+    .success-notification-close:active {
+      opacity: 0.6;
+    }
+
+    .success-notification-close:focus {
+      outline: none;
+    }
+  }
+
+  .heading-container {
+    font-size: 24px;
+    font-weight: 600;
+    .heading {
+      background: $gradient-color;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .sub-heading {
+    color: $text-color-light;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+
+    .input-section {
+      width: 30%;
+    }
+
+    .input-section:first-child {
+      margin-right: 10px;
+    }
+
+    .input-section:last-child {
+      margin-left: 10px;
+    }
+  }
+
+  .input-label {
+    font-weight: 600;
+    background: $gradient-color;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .input {
+    display: block;
+    text-transform: none;
+
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    color: $text-color;
+    font-size: 16px;
+    height: 40px;
+    padding: 0 10px;
+    width: 100%;
+
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance: none; /* Safari and Chrome */
+    appearance: none;
+    background: transparent;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='%23BDBDBD' d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: 5px;
+
+    &:hover {
+      border-color: $border-color-light;
+      box-shadow: 0 0 0 1px $border-color-light;
+    }
+
+    &:disabled {
+      background: $background-color;
+      border-color: $border-color;
+      color: $text-color-light;
+      cursor: not-allowed;
+    }
+
+    &:active {
+      border-color: $border-color-light;
+    }
+
+    &:focus {
+      border-color: $border-color-light;
+      outline: none;
+    }
+
+    &.error {
+      border-color: red;
+    }
+
+    &.success {
+      border-color: green;
+    }
+
+    &.warning {
+      border-color: yellow;
+    }
+  }
+
+  .submit-button-section {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .submit-button {
+    background: $gradient-color;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 180px;
+    height: 40px;
+    padding: 0 20px;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      opacity: 0.8;
+      background: $gradient-color;
+      box-shadow: 0 0 0 1px $border-color-light;
+    }
+
+    &:active {
+      background: $gradient-color;
+      box-shadow: 0 0 0 1px $border-color-light;
+    }
+
+    &:focus {
+      background: $gradient-color;
+      box-shadow: 0 0 0 1px $border-color-light;
+      outline: none;
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  }
+}
