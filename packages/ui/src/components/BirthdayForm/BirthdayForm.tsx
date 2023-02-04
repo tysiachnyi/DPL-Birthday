@@ -37,7 +37,7 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
     }
   }, [error]);
 
-  const errorBlock = (
+  const errorBlock = () => (
     <div className="error-notification">
       <div className="error-notification-text">{error}</div>
     </div>
@@ -144,7 +144,7 @@ const BirthdayForm: FC<BirthdayFormProps> = ({ data }) => {
       <div>
         {success && succesMsg && <Confetti numberOfPieces={300} />}
         <div className="succes-section">{success && successBlock()}</div>
-        <div className="error-section">{error && errorBlock}</div>
+        <div className="error-section">{error && errorBlock()}</div>
         <div className="spinner-section">{loading && <Spinner />}</div>
       </div>
       <div>
